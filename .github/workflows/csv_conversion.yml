@@ -1,0 +1,28 @@
+name: Convert Excel to CSV
+
+on:
+ push:
+  branches:
+  - main
+  jobs: 
+  convert-to-csv:
+  runs-on: ubuntu-latest
+
+  steps:
+  - name: Checkout repository
+  uses: actions/checkout@v2
+
+  -name: Setup Python
+  uses: actions/setup-python@v2
+  with:
+  python-version: 3.x
+  - name: Install dependencies
+  run: | 
+  pip install pandas openpyxl
+
+  -name: Convert Excel to CSV
+  run: |
+  python convert_excel_to_csv.py
+  env:
+  EXCEL_FILE_URL: ${{ secrets.EXCEL_FILE_URL }}
+  
